@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
+import { prisma } from "../../db/client"
 
 import { router, protectedProcedure } from "../trpc"
 
