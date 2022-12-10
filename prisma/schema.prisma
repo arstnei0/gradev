@@ -67,6 +67,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   subjects      Subject[]
+  public        Boolean?  @default(false)
 }
 
 model VerificationToken {

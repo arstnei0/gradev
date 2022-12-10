@@ -1,5 +1,8 @@
 import { initTRPC, TRPCError } from "@trpc/server"
+import next from "next"
 import superjson from "superjson"
+import { z } from "zod"
+import { prisma } from "../db/client"
 
 import { type Context } from "./context"
 
@@ -37,3 +40,21 @@ const isAuthed = t.middleware(({ ctx, next }) => {
  * Protected procedure
  **/
 export const protectedProcedure = t.procedure.use(isAuthed)
+
+export const sharedProcedure = t.procedure.input(z.string()).use(
+	t.middleware(async ({ ctx, next, input }) => {
+		if (!input) throw new TRPCError({ code: "BAD_REQUEST" })
+		const user = await prisma.user.findUnique({
+			where: {
+				id: input as string,
+			},
+			select: {
+				public: true,
+			},
+		})
+
+		if (!user?.public) throw new TRPCError({ code: "NOT_FOUND" })
+		
+		return next()
+	})
+)

@@ -2,7 +2,7 @@ import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { prisma } from "../../db/client"
 
-import { router, protectedProcedure } from "../trpc"
+import { router, protectedProcedure, publicProcedure, sharedProcedure } from "../trpc"
 
 export const gradeRouter = router({
 	all: protectedProcedure.query(async ({ ctx }) => {
@@ -92,4 +92,22 @@ export const gradeRouter = router({
 				},
 			})
 		}),
+	share: sharedProcedure.query(async ({ ctx, input }) => {
+		return prisma?.grade.findMany({
+			where: {
+				subject: {
+					userId: input,
+				},
+			},
+			select: {
+				subject: true,
+				mark: true,
+				id: true,
+				gradedAt: true,
+			},
+			orderBy: {
+				gradedAt: "asc",
+			},
+		})
+	}),
 })
