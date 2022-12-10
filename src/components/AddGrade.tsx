@@ -2,7 +2,7 @@ import { DatePicker, InputNumber, Modal, Select } from "antd"
 import type { FC } from "react"
 import { useState } from "react"
 import { trpc } from "../utils/trpc"
-import dayjs from 'dayjs';
+import dayjs from "dayjs"
 
 export const AddGrade: FC<{
 	open: boolean

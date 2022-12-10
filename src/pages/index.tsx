@@ -30,7 +30,8 @@ const Home: NextPage = () => {
 				>
 					<Link href="/visualize">
 						<Button type="primary">Visualize my grades</Button>
-					</Link><br></br>
+					</Link>
+					<br></br>
 					<Button onClick={() => signOut()}>Logout</Button>
 					<Subjects></Subjects>
 					<Grades></Grades>

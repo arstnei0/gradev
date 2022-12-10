@@ -72,7 +72,7 @@ export const Subjects: FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [newSubjectName, setNewSubjectName] = useState("")
 	const [newSubjectFullMark, setNewSubjectFullMark] = useState(8)
-	
+
 	const {
 		data: subjects,
 		isLoading,
